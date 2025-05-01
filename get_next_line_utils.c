@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/01 20:12:49 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/01 20:16:41 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@ int	c_is_in_charset(char c, char set)
 	if (c == set)
 		return (1);
 	return (0);
+}
+char	*ft_strchr(const char *s, int c)
+{
+	char	*str;
+	int		i;
+
+	str = (char *)s;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)c)
+			return (str + i);
+		i++;
+	}
+	if (!c)
+		return (str + i);
+	return (NULL);
 }
 
 char	*cut_string(char *s, char set)
