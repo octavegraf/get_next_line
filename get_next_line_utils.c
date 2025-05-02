@@ -6,17 +6,28 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/02 19:48:27 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/02 22:03:27 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	c_is_in_charset(char c, char set)
+char	*ft_strchr(const char *s, int c)
 {
-	if (c == set)
-		return (1);
-	return (0);
+	char	*str;
+	int		i;
+
+	str = (char *)s;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)c)
+			return (str + i);
+		i++;
+	}
+	if (!(char)c)
+		return (str + i);
+	return (NULL);
 }
 
 size_t	ft_strlen(const char *s)
@@ -24,6 +35,8 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
@@ -35,11 +48,11 @@ char	*c_cut_string(char *s, char set)
 	char	*result;
 
 	i = 0;
-	while (s[i] && !c_is_in_charset(s[i], set))
+	while (s[i] && !ft_strchr(s, set))
 		i++;
 	result = malloc(sizeof(char) * i);
 	i = 0;
-	while (s[i] && !c_is_in_charset(s[i], set))
+	while (s[i] && !ft_strchr(s, set))
 	{
 		result[i] = s[i];
 		i++;
@@ -73,9 +86,32 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s1s2);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	unsigned int			i;
+	char					*subs;
+
+	subs = malloc((len + 1) * sizeof(char));
+	if (!subs)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		subs[i] = s[start + i];
+		i++;
+	}
+	subs[i] = '\0';
+	return (subs);
+}
+
 int	main(void)
 {
-	int	fd;
+	int		fd;
+	char	*x;
+
 	fd = open("lorem_ipsum", O_RDONLY);
-	
+	x = get_next_line(fd);
+	while (x)
+		x = get_next_line(fd);
+	return (0);
 }
