@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:21:12 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/02 19:48:58 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/02 20:04:05 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int		c_is_in_charset(char c, char set);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
-
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 #endif
