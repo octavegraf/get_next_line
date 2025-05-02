@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/02 19:48:12 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/02 22:08:59 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,23 @@ char	*get_next_line(int fd)
 	size_t			bytes_read;
 	int				read_info;
 
+	read_info = 0;
 	if (!fd)
 		return (NULL);
+	if (!buffer)
+		buffer = malloc(sizeof(char) * BUFFER_SIZE);
 	bytes_read = ft_strlen(buffer);
 	if ((!bytes_read) || (bytes_read == BUFFER_SIZE))
-		read_info = (fd, buffer, BUFFER_SIZE);
+		read_info = read(fd, buffer, BUFFER_SIZE);
 	if ((!read_info) || (read_info == -1))
 		return (NULL);
-	if (c_is_in_charset(result, '\n'))
-		free(result);
-	else
-	{
-		result = ft_strjoin(result, c_cut_string(buffer, '\n'));
-		buffer = ft_substr(buffer, 0, ft_strlen(c_cut_string(buffer, '\n')));
-	}
-	if (c_is_in_charset(result, '\n'))
+	bytes_read = ft_strlen(c_cut_string(buffer, '\n'));
+	if (!result)
+		result = malloc(sizeof(char) * BUFFER_SIZE);
+	result = ft_strjoin(result, c_cut_string(buffer, '\n'));
+	buffer = ft_substr(buffer, bytes_read - 1, ft_strlen(buffer) - bytes_read);
+	if (ft_strchr(result, '\n'))
 		return (result);
 	else
-		get_next_line(fd);
+		return (get_next_line(fd));
+}
