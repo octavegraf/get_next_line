@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/01 19:35:22 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/02 19:48:12 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,25 @@
 char	*get_next_line(int fd)
 {
 	static char		*buffer;
-	char			*result;
-	static size_t	i;
-	static size_t	size;
+	static char		*result;
+	size_t			bytes_read;
+	int				read_info;
 
-	
-	size = 1024
-}
-
-/*
-ouvrir le fd
-detecter le \n
-allouer la memoire pour stocker les phrases
-*/
+	if (!fd)
+		return (NULL);
+	bytes_read = ft_strlen(buffer);
+	if ((!bytes_read) || (bytes_read == BUFFER_SIZE))
+		read_info = (fd, buffer, BUFFER_SIZE);
+	if ((!read_info) || (read_info == -1))
+		return (NULL);
+	if (c_is_in_charset(result, '\n'))
+		free(result);
+	else
+	{
+		result = ft_strjoin(result, c_cut_string(buffer, '\n'));
+		buffer = ft_substr(buffer, 0, ft_strlen(c_cut_string(buffer, '\n')));
+	}
+	if (c_is_in_charset(result, '\n'))
+		return (result);
+	else
+		get_next_line(fd);
