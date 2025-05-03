@@ -6,28 +6,31 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/02 22:03:27 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/03 10:14:50 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+int	c_is_in_charset(char c, char set)
 {
-	char	*str;
-	int		i;
+	if (c == set)
+		return (1);
+	return (0);
+}
 
-	str = (char *)s;
+int	str_is_in_charset(char *s, char set)
+{
+	int	i;
+
 	i = 0;
-	while (str[i])
+	while (s[i])
 	{
-		if (str[i] == (char)c)
-			return (str + i);
+		if (s[i] == set)
+			return (1);
 		i++;
 	}
-	if (!(char)c)
-		return (str + i);
-	return (NULL);
+	return (0);
 }
 
 size_t	ft_strlen(const char *s)
@@ -48,15 +51,17 @@ char	*c_cut_string(char *s, char set)
 	char	*result;
 
 	i = 0;
-	while (s[i] && !ft_strchr(s, set))
+	while (s[i] && !c_is_in_charset(s[i], set))
 		i++;
-	result = malloc(sizeof(char) * i);
+	result = malloc(sizeof(char) * i + 2);
 	i = 0;
-	while (s[i] && !ft_strchr(s, set))
+	while (s[i] && !c_is_in_charset(s[i], set))
 	{
 		result[i] = s[i];
 		i++;
 	}
+	result[i] = s[i];
+	i++;
 	result[i] = '\0';
 	return (result);
 }
