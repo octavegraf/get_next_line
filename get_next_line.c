@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/03 10:35:26 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/05 17:49:55 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-	static char		*result;
-	size_t			bytes_read;
-	static int		read_info;
+	char		*buffer;
+	static char	*temp;
+	int			fd_status;
 
-	if (result && str_is_in_charset(result, '\n'))
-		free(result);
-	if (!fd)
-		return (NULL);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		buffer = malloc(sizeof(char) * BUFFER_SIZE);
-	bytes_read = ft_strlen(buffer);
-	if ((!bytes_read) || (bytes_read == BUFFER_SIZE))
+		return (NULL);
+	if (!temp)
+		temp = buffer;
+	fd_status = read(fd, buffer, BUFFER_SIZE);
+	while (!s_is_in_charset(temp, '\n') && fd_status > 0)
 	{
-		read_info = read(fd, buffer, BUFFER_SIZE);
-		if ((!read_info) || (read_info == -1))
-			return (NULL);
+		buffer[BUFFER_SIZE] = '\0';
+		temp = ft_strjoin(temp, buffer);
+		fd_status = read(fd, buffer, BUFFER_SIZE);
 	}
-	bytes_read = ft_strlen(c_cut_string(buffer, '\n'));
-	if (!result)
-		result = malloc(sizeof(char) * BUFFER_SIZE);
-	result = ft_strjoin(result, c_cut_string(buffer, '\n'));
-	buffer = ft_substr(buffer, bytes_read, ft_strlen(buffer) - bytes_read);
-	if (str_is_in_charset(result, '\n'))
-		return (result);
-	else
-		return (get_next_line(fd));
+	if (fd_status <= 0 && !*temp)
+	{
+		free(buffer);
+		free(temp);
+		return (NULL);
+	}
+	buffer = ft_substr(temp, 0, s_is_in_charset(temp, '\n'));
+	return (temp = ft_substr(temp, s_is_in_charset(temp, '\n') + 1,
+			ft_strlen(temp) - s_is_in_charset(temp, '\n')), buffer);
 }
