@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:21:12 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/06 13:51:28 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:54:27 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # include <fcntl.h>
 
 char	*get_next_line(int fd);
-int		s_is_in_charset(char *s, char set);
+size_t		s_is_in_charset(char *s, char set);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_bzero(void *s, size_t n);
+char	*ft_strdup(const char *s1);
 #endif

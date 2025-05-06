@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/06 15:23:12 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:57:48 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,59 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
+char	*ft_strdup(const char *s1)
+{
+	size_t	i;
+	size_t	size;
+	char	*dest;
+
+	i = 0;
+	size = ft_strlen(s1);
+	dest = malloc((size + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (i < size + 1)
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	return (dest);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	static char	*temp;
+	char		*result;
+	char		*temp;
+	static char	*storage;
 	int			fd_status;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (fd <= 0)
+		return (NULL);
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	if (!temp)
-		temp = "";
-	fd_status = read(fd, buffer, BUFFER_SIZE);
-	while (!s_is_in_charset(temp, '\n') && fd_status > 0)
+	if (!storage)
+		storage = ft_strdup("");
+	if (!storage)
+		return (NULL);
+	fd_status = 1;
+	while ((fd_status > 0) && !s_is_in_charset(storage, '\n'))
 	{
-		buffer[BUFFER_SIZE] = '\0';
-		temp = ft_strjoin(temp, buffer);
-		ft_bzero(buffer, ft_strlen(buffer));
+		ft_bzero(buffer, BUFFER_SIZE + 1);
+		fd_status = read(fd, buffer, BUFFER_SIZE);
+		temp = ft_strdup(storage);
 		if (!temp)
 			return (NULL);
-		if (!s_is_in_charset(temp, '\n'))
-			fd_status = read(fd, buffer, BUFFER_SIZE);
+		free(storage);
+		storage = ft_strjoin(temp, buffer);
+		if (!storage)
+			return (NULL);
+		free(temp);
 	}
-	if (fd_status <= 0 && !temp)
-		return (NULL);
-	if (buffer)
-		free(buffer);
-	buffer = NULL;
-	if (fd_status > 0)
-		buffer = ft_substr(temp, 0, s_is_in_charset(temp, '\n'));
-	temp = ft_substr(temp, s_is_in_charset(temp, '\n') + 1,
-			ft_strlen(temp) - s_is_in_charset(temp, '\n'));
-	return (buffer);
-	if (!*temp)
-		return (free(temp), temp = NULL, NULL);
-	return (buffer);
-}	
+	result = ft_substr(storage, 0, s_is_in_charset(storage, '\n'));
+	if (!ft_strlen(result))
+		return (free(storage), free(buffer), free(result), NULL);
+	storage = ft_substr(storage, ft_strlen(result), ft_strlen(storage - ft_strlen(result)));
+	return (free(buffer), result);
+}

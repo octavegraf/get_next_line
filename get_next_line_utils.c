@@ -6,17 +6,19 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/06 15:23:31 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/06 16:55:53 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	s_is_in_charset(char *s, char set)
+size_t	s_is_in_charset(char *s, char set)
 {
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] == set)
@@ -81,17 +83,17 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (subs);
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*x;
+int	main(void)
+{
+	int		fd;
+	char	*x;
 
-// 	fd = open("lorem_ipsum", O_RDONLY);
-// 	x = get_next_line(fd);
-// 	while (x)
-// 		x = get_next_line(fd);
-// 	return (0);
-// }
+	fd = open("lorem_ipsum", O_RDONLY);
+	x = get_next_line(fd);
+	while (x)
+		x = get_next_line(fd);
+	return (0);
+}
 
 // #include <stdio.h>
 
