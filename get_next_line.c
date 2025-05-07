@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/06 16:57:48 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/06 20:32:23 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ char	*get_next_line(int fd)
 			return (NULL);
 		free(temp);
 	}
-	result = ft_substr(storage, 0, s_is_in_charset(storage, '\n'));
+	result = ft_substr(storage, 0, s_is_in_charset(storage, '\n') + 1);
 	if (!ft_strlen(result))
 		return (free(storage), free(buffer), free(result), NULL);
-	storage = ft_substr(storage, ft_strlen(result), ft_strlen(storage - ft_strlen(result)));
+	storage = ft_substr(storage, ft_strlen(result), ft_strlen(storage) - ft_strlen(result));
 	return (free(buffer), result);
 }
