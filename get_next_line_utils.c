@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/06 16:55:53 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/07 12:26:53 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,40 +83,41 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (subs);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*x;
-
-	fd = open("lorem_ipsum", O_RDONLY);
-	x = get_next_line(fd);
-	while (x)
-		x = get_next_line(fd);
-	return (0);
-}
-
-// #include <stdio.h>
-
-// int	main(int ac, char **av)
+// int	main(void)
 // {
 // 	int		fd;
-// 	char	*line;
+// 	char	*x;
 
-// 	if (ac != 2)
-// 		return (1);
-// 	fd = open(av[1], O_RDONLY);
-// 	if (fd < 0)
-// 		return (1);
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	close(fd);
+// 	fd = open("lorem_ipsum", O_RDONLY);
+// 	x = get_next_line(fd);
+// 	while (x)
+// 		x = get_next_line(fd);
 // 	return (0);
 // }
+
+#include <stdio.h>
+
+int	main(int ac, char **av)
+{
+	int		fd;
+	char	*line;
+
+	if (ac != 2)
+		return (1);
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		return (1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	return (0);
+}
 
 // int	main(void)
 // {
