@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/07 12:26:53 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/10 17:08:12 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,23 @@ size_t	s_is_in_charset(char *s, char set)
 	return (0);
 }
 
-size_t	ft_strlen(const char *s)
+char	*ft_strdup(const char *s1)
 {
-	int	i;
+	size_t	i;
+	size_t	size;
+	char	*dest;
 
 	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
+	size = ft_strlen(s1);
+	dest = malloc((size + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (i < size + 1)
+	{
+		dest[i] = s1[i];
 		i++;
-	return (i);
+	}
+	return (dest);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -63,6 +70,18 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	s1s2[i] = '\0';
 	return (s1s2);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -95,29 +114,29 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 // 	return (0);
 // }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main(int ac, char **av)
-{
-	int		fd;
-	char	*line;
+// int	main(int ac, char **av)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	if (ac != 2)
-		return (1);
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		return (1);
-	line = get_next_line(fd);
-	while (line)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	return (0);
-}
+// 	if (ac != 2)
+// 		return (1);
+// 	fd = open(av[1], O_RDONLY);
+// 	if (fd < 0)
+// 		return (1);
+// 	line = get_next_line(fd);
+// 	while (line)
+// 	{
+// 		printf("%s", line);
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	free(line);
+// 	close(fd);
+// 	return (0);
+// }
 
 // int	main(void)
 // {
