@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/10 20:28:13 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/10 20:48:18 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	size;
 	size_t	i;
 
+	if (!s1)
+		return (ft_strdup(s2));
 	size = ft_strlen(s1) + ft_strlen(s2);
 	s1s2 = malloc((size + 1) * sizeof(char));
 	if (!s1s2)
