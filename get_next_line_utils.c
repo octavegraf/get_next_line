@@ -6,26 +6,26 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/10 17:08:12 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/05/10 20:28:13 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	s_is_in_charset(char *s, char set)
+int	s_is_in_charset(char *s, char set)
 {
 	int	i;
 
 	i = 0;
 	if (!s)
-		return (0);
+		return (-1);
 	while (s[i])
 	{
 		if (s[i] == set)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 char	*ft_strdup(const char *s1)
