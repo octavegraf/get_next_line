@@ -97,7 +97,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (len > size_len - start)
 		len = size_len - start;
-
 	subs = malloc((len + 1) * sizeof(char));
 	if (!subs)
 		return (NULL);
@@ -111,89 +110,87 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (subs);
 }
 
+/* int	main(void)
+{
+	int		fd;
+	char	*x;
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*x;
+	fd = open("lorem_ipsum", O_RDONLY);
+	x = get_next_line(fd);
+	while (x)
+		x = get_next_line(fd);
+	return (0);
+} */
 
-// 	fd = open("lorem_ipsum", O_RDONLY);
-// 	x = get_next_line(fd);
-// 	while (x)
-// 		x = get_next_line(fd);
-// 	return (0);
-// }
+/* #include <stdio.h>
 
-// #include <stdio.h>
+int	main(int ac, char **av)
+{
+	int		fd;
+	char	*line;
 
-// int	main(int ac, char **av)
-// {
-// 	int		fd;
-// 	char	*line;
+	if (ac != 2)
+		return (1);
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		return (1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	return (0);
+}*/
+/* int	main(void)
+{
+	int		fd;
+	char	*x;
 
-// 	if (ac != 2)
-// 		return (1);
-// 	fd = open(av[1], O_RDONLY);
-// 	if (fd < 0)
-// 		return (1);
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	free(line);
-// 	close(fd);
-// 	return (0);
-// }
+	fd = open("lorem_ipsum", O_RDONLY);
+	x = get_next_line(fd);
+	while (x)
+		x = get_next_line(fd);
+	return (0);
+}*/
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*x;
+/* int	main(int ac, char **av)
+{
+	int		fd;
+	int		fd2;
+	int		fd3;
+	char	*line;
+	char	*line2;
+	char	*line3;
 
-// 	fd = open("lorem_ipsum", O_RDONLY);
-// 	x = get_next_line(fd);
-// /* 	while (x)
-// 		x = get_next_line(fd); */
-// 	return (0);
-// }
-
-// int	main(int ac, char **av)
-// {
-// 	int		fd;
-// 	int		fd2;
-// 	int		fd3;
-// 	char	*line;
-// 	char	*line2;
-// 	char	*line3;
-
-// 	fd = open(av[1], O_RDONLY);
-// 	fd2 = open(av[2], O_RDONLY);
-// 	fd3 = open(av[3], O_RDONLY);
-// 	if (fd < 0)
-// 		return (1);
-// 	line = get_next_line(fd);
-// 	line2 = get_next_line(fd2);
-// 	line3 = get_next_line(fd3);
-// 	while (line || line2 || line3)
-// 	{
-// 		if (line)
-// 			printf("(fd 1) %s", line);
-// 		if (line2)
-// 			printf("(fd 2) %s", line2);
-// 		if (line3)
-// 			printf("(fd 3) %s", line3);
-// 		free(line);
-// 		free(line2);
-// 		free(line3);
-// 		line = get_next_line(fd);
-// 		line2 = get_next_line(fd2);
-// 		line3 = get_next_line(fd3);
-// 	}
-// 	close(fd);
-// 	close(fd2);
-// 	close(fd3);
-// 	return (0);
-// }
+	fd = open(av[1], O_RDONLY);
+	fd2 = open(av[2], O_RDONLY);
+	fd3 = open(av[3], O_RDONLY);
+	if (fd < 0)
+		return (1);
+	line = get_next_line(fd);
+	line2 = get_next_line(fd2);
+	line3 = get_next_line(fd3);
+	while (line || line2 || line3)
+	{
+		if (line)
+			printf("(fd 1) %s", line);
+		if (line2)
+			printf("(fd 2) %s", line2);
+		if (line3)
+			printf("(fd 3) %s", line3);
+		free(line);
+		free(line2);
+		free(line3);
+		line = get_next_line(fd);
+		line2 = get_next_line(fd2);
+		line3 = get_next_line(fd3);
+	}
+	close(fd);
+	close(fd2);
+	close(fd3);
+	return (0);
+} */
