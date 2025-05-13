@@ -14,24 +14,27 @@
 
 char	*read_until_nl(int fd, char *current)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	*buffer;
 	char	*temp;
 	int		read_status;
 
 	read_status = 1;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
 	while ((read_status > 0) && (s_is_in_charset(current, '\n') < 0))
 	{
 		read_status = read(fd, buffer, BUFFER_SIZE);
 		if (read_status < 0)
-			return (free(current), NULL);
+			return (free(buffer), buffer = NULL, free(current), NULL);
 		if (read_status == 0)
-			return (current);
+			return (free(buffer), buffer = NULL, current);
 		buffer[read_status] = '\0';
 		temp = ft_strjoin(current, buffer);
 		free(current);
 		current = temp;
 	}
-	return (current);
+	return (free(buffer), buffer = NULL, current);
 }
 
 static char	*cut_line(char **current)
