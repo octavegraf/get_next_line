@@ -60,15 +60,62 @@ static char	*cut_line(char **current)
 	return (result);
 }
 
+void	free_everything(char ***current)
+{
+	int	i;
+
+	i = -1;
+	while (++i < FOPEN_MAX)
+	{
+		if ((*current)[i])
+		{
+			free((*current)[i]);
+			(*current)[i] = NULL;
+		}
+	}
+	free(*current);
+	(*current) = NULL;
+}
+
+int	is_there_something_to_free(char **current)
+{
+	int	i;
+
+	if (!current)
+		return (0);
+	i = -1;
+	while (++i < FOPEN_MAX)
+	{
+		if (current[i])
+			return (1);
+	}
+	return (0);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	**current;
+	int			i;
 
-	current = sizeof(char) * FOPEN_MAX;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	i = -1;
+	if (fd >= FOPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
+	{
+		if (current)
+			free_everything(&current);
 		return (NULL);
+	}
+	if (!current)
+	{
+		current = malloc(sizeof(char *) * FOPEN_MAX);
+		if (!current)
+			return (NULL);
+		while (++i < FOPEN_MAX)
+			current[i] = NULL;
+	}
 	current[fd] = read_until_nl(fd, current[fd]);
-	if (!current || !*current)
-		return (free(current), current = NULL, NULL);
-	return (cut_line(&current));
+	if (!(current[fd]) || !(current[fd][0]))
+		return (free_everything(&current), NULL);
+	if (!is_there_something_to_free(current))
+		free_everything(&current);
+	return (cut_line(&current[fd]));
 }

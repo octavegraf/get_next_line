@@ -34,6 +34,8 @@ char	*ft_strdup(const char *s1)
 	size_t	size;
 	char	*dest;
 
+	if (!s1)
+		return (ft_strdup(""));
 	i = 0;
 	size = ft_strlen(s1);
 	dest = malloc((size + 1) * sizeof(char));
@@ -157,7 +159,7 @@ int	main(int ac, char **av)
 	return (0);
 }*/
 
-/* int	main(int ac, char **av)
+/*int	main(int ac, char **av)
 {
 	int		fd;
 	int		fd2;
@@ -192,5 +194,6 @@ int	main(int ac, char **av)
 	close(fd);
 	close(fd2);
 	close(fd3);
+	ac = ac;
 	return (0);
-} */
+}*/
