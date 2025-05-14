@@ -112,53 +112,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (subs);
 }
 
-/* int	main(void)
-{
-	int		fd;
-	char	*x;
-
-	fd = open("lorem_ipsum", O_RDONLY);
-	x = get_next_line(fd);
-	while (x)
-		x = get_next_line(fd);
-	return (0);
-} */
-
-/* #include <stdio.h>
-
-int	main(int ac, char **av)
-{
-	int		fd;
-	char	*line;
-
-	if (ac != 2)
-		return (1);
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		return (1);
-	line = get_next_line(fd);
-	while (line)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	return (0);
-}*/
-/* int	main(void)
-{
-	int		fd;
-	char	*x;
-
-	fd = open("lorem_ipsum", O_RDONLY);
-	x = get_next_line(fd);
-	while (x)
-		x = get_next_line(fd);
-	return (0);
-}*/
-
 /*int	main(int ac, char **av)
 {
 	int		fd;
@@ -168,9 +121,10 @@ int	main(int ac, char **av)
 	char	*line2;
 	char	*line3;
 
-	fd = open(av[1], O_RDONLY);
-	fd2 = open(av[2], O_RDONLY);
-	fd3 = open(av[3], O_RDONLY);
+
+	fd = 5;
+	fd2 = 5;
+	fd3 = 5;
 	if (fd < 0)
 		return (1);
 	line = get_next_line(fd);
@@ -191,6 +145,8 @@ int	main(int ac, char **av)
 		line2 = get_next_line(fd2);
 		line3 = get_next_line(fd3);
 	}
+	get_next_line(fd3);
+	get_next_line(fd3);
 	close(fd);
 	close(fd2);
 	close(fd3);
