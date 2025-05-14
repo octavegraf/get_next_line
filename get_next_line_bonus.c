@@ -26,7 +26,9 @@ char	*read_until_nl(int fd, char *current)
 	{
 		read_status = read(fd, buffer, BUFFER_SIZE);
 		if (read_status < 0)
+		{
 			return (free(buffer), buffer = NULL, free(current), NULL);
+		}
 		if (read_status == 0)
 			return (free(buffer), buffer = NULL, current);
 		buffer[read_status] = '\0';
@@ -43,6 +45,8 @@ static char	*cut_line(char **current)
 	char	*temp;
 	int		n;
 
+	if (!current || !*current)
+		return (NULL);
 	n = s_is_in_charset(*current, '\n');
 	if (n >= 0)
 	{
@@ -75,7 +79,7 @@ void	free_everything(char ***current)
 	}
 	free(*current);
 	(*current) = NULL;
-}
+}	
 
 int	is_there_something_to_free(char **current)
 {
@@ -98,12 +102,8 @@ char	*get_next_line(int fd)
 	int			i;
 
 	i = -1;
-	if (fd >= FOPEN_MAX || fd < 0 || BUFFER_SIZE <= 0)
-	{
-		if (current)
-			free_everything(&current);
+	if ((fd >= FOPEN_MAX || fd < 0 || BUFFER_SIZE <= 0))
 		return (NULL);
-	}
 	if (!current)
 	{
 		current = malloc(sizeof(char *) * FOPEN_MAX);
@@ -114,8 +114,12 @@ char	*get_next_line(int fd)
 	}
 	current[fd] = read_until_nl(fd, current[fd]);
 	if (!(current[fd]) || !(current[fd][0]))
-		return (free_everything(&current), NULL);
-	if (!is_there_something_to_free(current))
-		free_everything(&current);
+	{
+		free(current[fd]);
+		current[fd] = NULL;
+		if (!is_there_something_to_free(current))
+			free_everything(&current);
+		return (NULL);
+	}
 	return (cut_line(&current[fd]));
 }
