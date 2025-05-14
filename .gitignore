@@ -1,6 +1,4 @@
 .vscode
-b.txt
-a.out
-a.txt
-c.txt
+*.txt
 *.o*
+.gitignore
