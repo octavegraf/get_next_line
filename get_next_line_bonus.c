@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/06/09 14:52:54 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:57:37 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*gnl_read_until_nl_bonus(int fd, char *current)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
-	while ((read_status > 0) && (gnl_s_is_in_charset(current, '\n') < 0))
+	while ((read_status > 0) && (gnl_s_is_in_charset_bonus(current, '\n') < 0))
 	{
 		read_status = read(fd, buffer, BUFFER_SIZE);
 		if (read_status < 0)
@@ -32,7 +32,7 @@ char	*gnl_read_until_nl_bonus(int fd, char *current)
 		if (read_status == 0)
 			return (free(buffer), buffer = NULL, current);
 		buffer[read_status] = '\0';
-		temp = gnl_ft_strjoin(current, buffer);
+		temp = gnl_ft_strjoin_bonus(current, buffer);
 		free(current);
 		current = temp;
 	}
@@ -47,18 +47,18 @@ static char	*gnl_cut_line_bonus(char **current)
 
 	if (!current || !*current)
 		return (NULL);
-	n = gnl_s_is_in_charset(*current, '\n');
+	n = gnl_s_is_in_charset_bonus(*current, '\n');
 	if (n >= 0)
 	{
-		result = gnl_ft_substr(*current, 0, n + 1);
-		temp = gnl_ft_substr(*current, n + 1,
-				((gnl_ft_strlen(*current) - n) - 1));
+		result = gnl_ft_substr_bonus(*current, 0, n + 1);
+		temp = gnl_ft_substr_bonus(*current, n + 1,
+				((gnl_ft_strlen_bonus(*current) - n) - 1));
 		free(*current);
 		*current = temp;
 	}
 	else
 	{
-		result = gnl_ft_strdup(*current);
+		result = gnl_ft_strdup_bonus(*current);
 		free(*current);
 		*current = NULL;
 	}
@@ -113,14 +113,14 @@ char	*get_next_line_bonus(int fd)
 		while (++i < FOPEN_MAX)
 			current[i] = NULL;
 	}
-	current[fd] = gnl_read_until_nl(fd, current[fd]);
+	current[fd] = gnl_read_until_nl_bonus(fd, current[fd]);
 	if (!(current[fd]) || !(current[fd][0]))
 	{
 		free(current[fd]);
 		current[fd] = NULL;
-		if (!is_there_something_to_free(current))
-			free_everything(&current);
+		if (!gnl_is_there_something_to_free_bonus(current))
+			gnl_free_everything_bonus(&current);
 		return (NULL);
 	}
-	return (cut_line(&current[fd]));
+	return (gnl_cut_line_bonus(&current[fd]));
 }

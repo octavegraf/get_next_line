@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/06/09 14:51:08 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:58:46 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*gnl_ft_strdup_bonus(const char *s1)
 	char	*dest;
 
 	if (!s1)
-		return (gnl_ft_strdup(""));
+		return (gnl_ft_strdup_bonus(""));
 	i = 0;
-	size = gnl_ft_strlen(s1);
+	size = gnl_ft_strlen_bonus(s1);
 	dest = malloc((size + 1) * sizeof(char));
 	if (!dest)
 		return (NULL);
@@ -58,10 +58,11 @@ char	*gnl_ft_strjoin_bonus(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (gnl_ft_strdup(s2));
+		return (gnl_ft_strdup_bonus(s2));
 	if (!s2)
-		return (gnl_ft_strdup(s1));
-	s1s2 = malloc((gnl_ft_strlen(s1) + gnl_ft_strlen(s2) + 1) * sizeof(char));
+		return (gnl_ft_strdup_bonus(s1));
+	s1s2 = malloc((gnl_ft_strlen_bonus(s1) + gnl_ft_strlen_bonus(s2) + 1)
+			* sizeof(char));
 	if (!s1s2)
 		return (NULL);
 	i = -1;
@@ -94,9 +95,9 @@ char	*gnl_ft_substr_bonus(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	size_len = gnl_ft_strlen(s);
+	size_len = gnl_ft_strlen_bonus(s);
 	if (start >= size_len)
-		return (gnl_ft_strdup(""));
+		return (gnl_ft_strdup_bonus(""));
 	if (len > size_len - start)
 		len = size_len - start;
 	subs = malloc((len + 1) * sizeof(char));

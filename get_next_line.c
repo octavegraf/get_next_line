@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/06/09 14:52:18 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:57:09 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*gnl_read_until_nl(int fd, char *current)
 	return (free(buffer), buffer = NULL, current);
 }
 
-static char	*cut_line(char **current)
+static char	*gnl_cut_line(char **current)
 {
 	char	*result;
 	char	*temp;
@@ -70,5 +70,5 @@ char	*get_next_line(int fd)
 	current = gnl_read_until_nl(fd, current);
 	if (!current || !*current)
 		return (free(current), current = NULL, NULL);
-	return (cut_line(&current));
+	return (gnl_cut_line(&current));
 }
