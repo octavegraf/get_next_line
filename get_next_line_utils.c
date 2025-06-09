@@ -6,13 +6,13 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:18:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/12 15:52:43 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:51:08 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	s_is_in_charset(char *s, char set)
+int	gnl_s_is_in_charset(char *s, char set)
 {
 	int	i;
 
@@ -28,14 +28,14 @@ int	s_is_in_charset(char *s, char set)
 	return (-1);
 }
 
-char	*ft_strdup(const char *s1)
+char	*gnl_ft_strdup(const char *s1)
 {
 	size_t	i;
 	size_t	size;
 	char	*dest;
 
 	i = 0;
-	size = ft_strlen(s1);
+	size = gnl_ft_strlen(s1);
 	dest = malloc((size + 1) * sizeof(char));
 	if (!dest)
 		return (NULL);
@@ -47,7 +47,7 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*gnl_ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s1s2;
 	size_t	i;
@@ -56,10 +56,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (ft_strdup(s2));
+		return (gnl_ft_strdup(s2));
 	if (!s2)
-		return (ft_strdup(s1));
-	s1s2 = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+		return (gnl_ft_strdup(s1));
+	s1s2 = malloc((gnl_ft_strlen(s1) + gnl_ft_strlen(s2) + 1) * sizeof(char));
 	if (!s1s2)
 		return (NULL);
 	i = -1;
@@ -72,7 +72,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s1s2);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	gnl_ft_strlen(const char *s)
 {
 	int	i;
 
@@ -84,7 +84,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*gnl_ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*subs;
 	size_t			i;
@@ -92,9 +92,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	size_len = ft_strlen(s);
+	size_len = gnl_ft_strlen(s);
 	if (start >= size_len)
-		return (ft_strdup(""));
+		return (gnl_ft_strdup(""));
 	if (len > size_len - start)
 		len = size_len - start;
 	subs = malloc((len + 1) * sizeof(char));

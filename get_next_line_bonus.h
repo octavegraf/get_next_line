@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:21:12 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/10 19:45:15 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:51:39 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-char		*get_next_line(int fd);
-int			s_is_in_charset(char *s, char set);
-char		*ft_strchr(const char *s, int c);
-char		*ft_strjoin(char const *s1, char const *s2);
-size_t		ft_strlen(const char *s);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strdup(const char *s1);
-char		*read_until_nl(int fd, char *current);
+char		*get_next_line_bonus(int fd);
+int			gnl_s_is_in_charset_bonus(char *s, char set);
+char		*gnl_ft_strchr_bonus(const char *s, int c);
+char		*gnl_ft_strjoin_bonus(char const *s1, char const *s2);
+size_t		gnl_ft_strlen_bonus(const char *s);
+char		*gnl_ft_substr_bonus(char const *s, unsigned int start, size_t len);
+char		*gnl_ft_strdup_bonus(const char *s1);
+char		*gnl_read_until_nl_bonus(int fd, char *current);
 
 #endif

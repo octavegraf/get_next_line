@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:07:18 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/05/10 20:30:44 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/06/09 14:52:54 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*read_until_nl(int fd, char *current)
+char	*gnl_read_until_nl_bonus(int fd, char *current)
 {
 	char	*buffer;
 	char	*temp;
@@ -22,7 +22,7 @@ char	*read_until_nl(int fd, char *current)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
-	while ((read_status > 0) && (s_is_in_charset(current, '\n') < 0))
+	while ((read_status > 0) && (gnl_s_is_in_charset(current, '\n') < 0))
 	{
 		read_status = read(fd, buffer, BUFFER_SIZE);
 		if (read_status < 0)
@@ -32,14 +32,14 @@ char	*read_until_nl(int fd, char *current)
 		if (read_status == 0)
 			return (free(buffer), buffer = NULL, current);
 		buffer[read_status] = '\0';
-		temp = ft_strjoin(current, buffer);
+		temp = gnl_ft_strjoin(current, buffer);
 		free(current);
 		current = temp;
 	}
 	return (free(buffer), buffer = NULL, current);
 }
 
-static char	*cut_line(char **current)
+static char	*gnl_cut_line_bonus(char **current)
 {
 	char	*result;
 	char	*temp;
@@ -47,24 +47,25 @@ static char	*cut_line(char **current)
 
 	if (!current || !*current)
 		return (NULL);
-	n = s_is_in_charset(*current, '\n');
+	n = gnl_s_is_in_charset(*current, '\n');
 	if (n >= 0)
 	{
-		result = ft_substr(*current, 0, n + 1);
-		temp = ft_substr(*current, n + 1, ((ft_strlen(*current) - n) - 1));
+		result = gnl_ft_substr(*current, 0, n + 1);
+		temp = gnl_ft_substr(*current, n + 1,
+				((gnl_ft_strlen(*current) - n) - 1));
 		free(*current);
 		*current = temp;
 	}
 	else
 	{
-		result = ft_strdup(*current);
+		result = gnl_ft_strdup(*current);
 		free(*current);
 		*current = NULL;
 	}
 	return (result);
 }
 
-void	free_everything(char ***current)
+void	gnl_free_everything_bonus(char ***current)
 {
 	int	i;
 
@@ -81,7 +82,7 @@ void	free_everything(char ***current)
 	(*current) = NULL;
 }	
 
-int	is_there_something_to_free(char **current)
+int	gnl_is_there_something_to_free_bonus(char **current)
 {
 	int	i;
 
@@ -96,7 +97,7 @@ int	is_there_something_to_free(char **current)
 	return (0);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
 	static char	**current;
 	int			i;
@@ -112,7 +113,7 @@ char	*get_next_line(int fd)
 		while (++i < FOPEN_MAX)
 			current[i] = NULL;
 	}
-	current[fd] = read_until_nl(fd, current[fd]);
+	current[fd] = gnl_read_until_nl(fd, current[fd]);
 	if (!(current[fd]) || !(current[fd][0]))
 	{
 		free(current[fd]);
